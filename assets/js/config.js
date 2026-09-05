@@ -1,4 +1,4 @@
-window.CAD_SHEETS_WEBAPP_URL = ''; // paste your Google Apps Script Web app URL here
+window.CAD_SHEETS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyKx57slcvZQqgdXXd4mC_Nw4fd6J_UTVrqjGLZ4mYkpRx-mmaCoN0ve9cHThnVH52S2Q/exec';
 
 window.CAD_SUPABASE = {
   url: 'https://zqmdubzwlfjpzpftawme.supabase.co',
