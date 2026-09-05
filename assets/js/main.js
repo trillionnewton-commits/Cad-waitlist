@@ -231,30 +231,19 @@
         return;
       }
       if(!/^https?:\/\//i.test(store)){ store = 'https://' + store; }
-      var SB = window.CAD_SUPABASE;
-      fetch(SB.url + '/rest/v1/waitlist', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SB.key,
-          'Prefer': 'resolution=merge-duplicates,return=minimal'
-        },
-        body: JSON.stringify({ email: email, store: store, source: formId })
-      }).then(function(r){
-        if(r.status === 201 || r.status === 200){
-          return fetch(SB.url + '/rest/v1/rpc/waitlist_count', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'apikey': SB.key },
-            body: 'null'
-          });
-        }
-        return null;
-      }).then(function(r){ return r ? r.json() : null; }).then(function(count){
-        if(count){
-          var el = document.getElementById("up-position");
-          if(el){ el.textContent = "You\u2019re #" + count + " in line"; }
-        }
-      }).catch(function(){});
+      var SHEETS_URL = window.CAD_SHEETS_WEBAPP_URL;
+      if(SHEETS_URL){
+        fetch(SHEETS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ email: email, store: store, source: formId })
+        }).then(function(r){ return r.json(); }).then(function(d){
+          if(d && d.ok && d.count){
+            var el = document.getElementById("up-position");
+            if(el){ el.textContent = "You\u2019re #" + d.count + " in line"; }
+          }
+        }).catch(function(){});
+      }
       toast.classList.add('show');
       setTimeout(function(){ toast.classList.remove('show'); }, 3800);
       form.reset();
