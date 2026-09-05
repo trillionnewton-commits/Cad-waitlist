@@ -1,0 +1,9 @@
+{
+  "name": "aim-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CAD / AIM landing page with waitlist backend",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
